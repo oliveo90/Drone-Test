@@ -30,36 +30,50 @@
                 <input type="submit" name="reset" value="Reset">
             </form>
             
-                   <?php
-                    	# click reset button to hide output div block
+                <?php
+                        # Sanitize POST array to remove unwanted characters for security
+                        if( $_SERVER['REQUEST_METHOD']=='POST' && isset( $_POST['submit'] ) ){
+
+                            $truck_name = filter_input( INPUT_POST, 'truck_name', FILTER_SANITIZE_STRING );
+                            $max_weight = filter_input( INPUT_POST, 'max_weight', FILTER_SANITIZE_STRING );
+
+                            $location_1 = filter_input( INPUT_POST, 'location_1', FILTER_SANITIZE_STRING );
+                            $location_2 = filter_input( INPUT_POST, 'location_2', FILTER_SANITIZE_STRING );
+                            $location_3 = filter_input( INPUT_POST, 'location_3', FILTER_SANITIZE_STRING );
+
+                            $package_1 = filter_input( INPUT_POST, 'package_1', FILTER_SANITIZE_STRING );
+                            $package_2 = filter_input( INPUT_POST, 'package_2', FILTER_SANITIZE_STRING );
+                            $package_3 = filter_input( INPUT_POST, 'package_3', FILTER_SANITIZE_STRING );
+                    	
+                        # click reset button to hide output div block
                     	$style = "";
                         if( isset($_POST['reset']) ){
-        						        $style = "style='display:none;'";
+                                $style = "style='display:none;'";
                         }
 
-                    	  # output div block
+                        # output div block
                         echo "<div " . $style . ">";
-                        echo '<h2>Most Efficient Delivery Routes</h2>';
+                                echo '<h2>Most Efficient Delivery Routes</h2>';
 
-                        # set locations
-                        $drone=new Drone( $drone_name, $max_weight );
+                                # set locations
+                                $drone=new Drone( $drone_name, $max_weight );
 
-                        $loc_1=new Location( $location_1, $package_1 );
-                        $loc_2=new Location( $location_2, $package_2 );
-                        $loc_3=new Location( $location_3, $package_3 );
+                                $loc_1=new Location( $location_1, $package_1 );
+                                $loc_2=new Location( $location_2, $package_2 );
+                                $loc_3=new Location( $location_3, $package_3 );
 
-                    	# Output Trip #1
-                    	echo '<h4>Trip #1</h4>';
+                                # Output Trip #1
+                                echo '<h4>Trip #1</h4>';
 
-                        $trip_1 = new Trip;
-                        echo $trip_1->setLocations($loc_2) . ", " . $trip_1->setLocations($loc_3);
+                                $trip_1 = new Trip;
+                                echo $trip_1->setLocations($loc_2) . ", " . $trip_1->setLocations($loc_3);
 
-                    	# Output Trip #2
-                        echo '<br /> <h4>Trip #2</h4>';
+                                # Output Trip #2
+                                echo '<br /> <h4>Trip #2</h4>';
 
-                        $trip_2 = new Trip;
-                        echo $trip_2->setLocations($loc_1);;
-            			echo "</div>";
+                                $trip_2 = new Trip;
+                                echo $trip_2->setLocations($loc_1);;
+                        echo "</div>";
                 }
         ?>
         </body>
