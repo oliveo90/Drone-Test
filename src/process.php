@@ -39,18 +39,3 @@
                         return $trip_loc->get_location();
                 }
         }
-        
-  # Sanitize POST array to remove unwanted characters for security
-        if( $_SERVER['REQUEST_METHOD']=='POST' && isset( $_POST['submit'] ) ){
-
-                $drone_name = filter_input( INPUT_POST, 'drone_name', FILTER_SANITIZE_STRING );
-                $max_weight = filter_input( INPUT_POST, 'max_weight', FILTER_SANITIZE_STRING );
-
-                $location_1 = filter_input( INPUT_POST, 'location_1', FILTER_SANITIZE_STRING );
-                $location_2 = filter_input( INPUT_POST, 'location_2', FILTER_SANITIZE_STRING );
-                $location_3 = filter_input( INPUT_POST, 'location_3', FILTER_SANITIZE_STRING );
-
-                $package_1 = filter_input( INPUT_POST, 'package_1', FILTER_SANITIZE_STRING );
-                $package_2 = filter_input( INPUT_POST, 'package_2', FILTER_SANITIZE_STRING );
-                $package_3 = filter_input( INPUT_POST, 'package_3', FILTER_SANITIZE_STRING );
-                
