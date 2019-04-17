@@ -43,7 +43,7 @@
         # Sanitize POST array to remove unwanted characters for security
         if( $_SERVER['REQUEST_METHOD']=='POST' && isset( $_POST['submit'] ) ){
 
-            $truck_name = filter_input( INPUT_POST, 'truck_name', FILTER_SANITIZE_STRING );
+            $drone_name = filter_input( INPUT_POST, 'drone_name', FILTER_SANITIZE_STRING );
             $max_weight = filter_input( INPUT_POST, 'max_weight', FILTER_SANITIZE_STRING );
 
             $location_1 = filter_input( INPUT_POST, 'location_1', FILTER_SANITIZE_STRING );
@@ -54,12 +54,7 @@
             $package_2 = filter_input( INPUT_POST, 'package_2', FILTER_SANITIZE_STRING );
             $package_3 = filter_input( INPUT_POST, 'package_3', FILTER_SANITIZE_STRING );
 
-                # click reset button to hide output div block
-                $style = "";
-                if( isset($_POST['reset']) ){
-                        $style = "style='display:none;'";
-                }
-
+    
                 # set locations
                 $drone=new Drone( $drone_name, $max_weight );
 
@@ -73,4 +68,11 @@
                 # init Trip #2
                 $trip_2 = new Trip;
         }
+         # click reset button to hide output div block
+                $style = "style='display:none;'";
+                if( isset($_POST['submit']) ){
+                        $style = "style='display:block;'";
+                } else if(isset($_POST['reset']) ) {
+                        $style = "style='display:none;'";
+                }
 ?>
